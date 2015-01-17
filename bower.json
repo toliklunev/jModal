@@ -1,0 +1,23 @@
+{
+  "name": "jmodal",
+  "version": "0.1.0",
+  "homepage": "https://github.com/codefucker/jModal",
+  "authors": [
+    "codefucker <toliklunev@ya.ru>"
+  ],
+  "description": "Simple modal windows with adaptive scrolling",
+  "main": "[src/jquery.jmodal.js, src/jquery.jmodal.css]",
+  "keywords": [
+    "modal",
+    "scrolling",
+    "windows"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

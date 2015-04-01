@@ -31,32 +31,93 @@
 
 		$('[data-jmodal-init]').each(function(){
 			var $modal = $($(this).data('jmodal-init'));
+			var vars = $(this).data('jmodal-vars');
+			
+			if(typeof vars !== 'object'){
+				vars = eval('('+ vars +')');
+			}
 
-			$(this).click(function(){
-				$modal.jModal();
+			$(this).click(function(e){
+				e.preventDefault();
+				$modal.jModal({
+					vars: vars || null
+				});
 			});
 		});
 	});
 	
 	$(window).keydown(function(e){
-		console.log(e.which);
 		if(e.which == 27){
 			$jmodal_close.click();
 		}
 	});
 
 	$.jModalDefOptions = {
-		onClose: function(){},
-		onOpen: function(){}
+		onClose: $.noop,
+		onOpen: $.noop,
+		vars: null
 	};
 	
 	$.fn.jModal = function(options){
 
-		var c = $.extend($.jmodalDefOptions, options);
+		var c = $.extend($.jModalDefOptions, options);
 		var $close = $jmodal_bg.add($jmodal_close).add($('.jmodal_close', this));
 
 		$modal = this;
+		
+		if(c.vars){
+			var $inputs = $([]);
+			var $containers = $([]);
+			
+			$modal.find('*').each(function(){
+				var expr = new RegExp(/{{(.*)}}/);
+				
+				if($(this).is('input')){
+					var $input = $(this);
+					var val = $input.val();
+					var res = expr.exec(val);
+					
+					if(res){
+						var newVal = c.vars[res[1]];
+						
+						if(newVal){
+							$input.val(newVal);
+							$input.data('jmodal-var', res[0]);
+							$inputs = $inputs.add($input);
+						}
+					}
+				}
+				
+				else{
+					$(this).contents().each(function(){
+						
+						if(this.nodeType === 3 && $.trim(this.nodeValue)){
+							
+							var res = expr.exec(this.nodeValue);
+							
+							if(res){
+								var newVal = c.vars[res[1]];
+								
+								if(newVal){
+									
+									var $container = $(this).parent();
+									$container.text(res.input.replace(res[0], newVal))
+									$container.data('jmodal-text-node', res.input);
+									$containers = $inputs.add($container);
+								}
+							}
+							
+						}
+						
+					});
+				}
+			
+			});
+		}
 
+		/*
+			Если это не то окно, которое было открыто в прошлый раз
+		 */
 		if(!$modal.is($prev_modal)){
 			$jmodal_placeholder
 					.after($prev_modal)
@@ -68,6 +129,14 @@
 		}
 
 		if(!mobile){
+			var $fixed = $('*').filter(function(){
+				return $(this).css('position') === 'fixed'
+			}).not($jmodal).not($jmodal_bg);
+			
+			$fixed.each(function(){
+				$(this).css('max-width', $(this).outerWidth());
+			});
+			
 			var diff = -$html.width() + $html.addClass('jmodal_shown').width();
 
 			if(diff){
@@ -108,6 +177,18 @@
 			$close.unbind(e);
 
 			$html.removeClass('jmodal_shown');
+			$fixed.css('max-width', '');
+			
+			
+			$inputs.each(function(){
+				var $input = $(this);
+				$input.val($input.data('jmodal-var'));
+			});
+			
+			$containers.each(function(){
+				var $container = $(this);
+				$container.text($container.data('jmodal-text-node'));
+			});
 
 			if(!mobile){
 				if($jmodal_container.outerHeight(true) < $jmodal.height()){

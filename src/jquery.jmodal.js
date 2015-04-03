@@ -66,51 +66,38 @@
 		$modal = this;
 		
 		if(c.vars){
-			var $inputs = $([]);
-			var $containers = $([]);
+			var nodes = [];
+			var expr = new RegExp(/{{(.*)}}/);
 			
-			$modal.find('*').each(function(){
-				var expr = new RegExp(/{{(.*)}}/);
+			var processNode = function(node){
+				var val = node.nodeValue;
+				var res = expr.exec(val);
 				
-				if($(this).is('input')){
-					var $input = $(this);
-					var val = $input.val();
-					var res = expr.exec(val);
+				if(res){
+					var newVal = c.vars[res[1]];
 					
-					if(res){
-						var newVal = c.vars[res[1]];
+					if(newVal){
+						node.nodeValue = val.replace(res[0], newVal);
 						
-						if(newVal){
-							$input.val(newVal);
-							$input.data('jmodal-var', res[0]);
-							$inputs = $inputs.add($input);
-						}
+						nodes.push({
+							node: node,
+							val: val
+						});
 					}
 				}
+			};
+			
+			$modal.find('*').each(function(){
 				
-				else{
-					$(this).contents().each(function(){
-						
-						if(this.nodeType === 3 && $.trim(this.nodeValue)){
-							
-							var res = expr.exec(this.nodeValue);
-							
-							if(res){
-								var newVal = c.vars[res[1]];
-								
-								if(newVal){
-									
-									var $container = $(this).parent();
-									$container.text(res.input.replace(res[0], newVal))
-									$container.data('jmodal-text-node', res.input);
-									$containers = $inputs.add($container);
-								}
-							}
-							
-						}
-						
-					});
-				}
+				$.map(this.attributes, function(attr){
+					processNode(attr);
+				});
+				
+				$(this).contents().each(function(){
+					if(this.nodeType === 3 && $.trim(this.nodeValue)){
+						processNode(this);
+					}
+				});
 			
 			});
 		}
@@ -179,15 +166,8 @@
 			$html.removeClass('jmodal_shown');
 			$fixed.css('max-width', '');
 			
-			
-			$inputs.each(function(){
-				var $input = $(this);
-				$input.val($input.data('jmodal-var'));
-			});
-			
-			$containers.each(function(){
-				var $container = $(this);
-				$container.text($container.data('jmodal-text-node'));
+			$.map(nodes, function(data){
+				data.node.nodeValue = data.val;
 			});
 
 			if(!mobile){

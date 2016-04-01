@@ -1,4 +1,6 @@
-.modal{
+$jmodal-modal-class: 'modal' !default;
+
+.#{$jmodal-modal-class}{
   position: relative;
   background: #FFF;
   display: none;
@@ -24,7 +26,7 @@
     overflow: auto;
     display: block;
 
-    .modal{
+    .#{$jmodal-modal-class}{
       display: block;
     }
   }

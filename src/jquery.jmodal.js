@@ -30,7 +30,7 @@
       onClose: $.noop,
       onOpen: $.noop,
       label: false,
-      vars: null
+      vars: {}
     });
     
     this.shown = false;
@@ -60,9 +60,7 @@
       this.$modal = modal;
     }
     
-    if(this.curOptions.vars){
-      this.replaceVarNodes();
-    }
+    this.replaceVarNodes();
     
     /*
       Если это не то окно, которое было открыто в прошлый раз
@@ -158,15 +156,18 @@
   
   jModal.prototype.processVarNode = function(node){
     
-    var expr = new RegExp(/{{(.*)}}/);
+    var expr = new RegExp(/^{{(.*)}}$/);
     var val = node.nodeValue;
     var res = expr.exec(val);
     
     if(res){
-      var newVal = this.curOptions.vars[res[1]];
+      
+      var v = res[1].split(/:(.+)?/);
+      
+      var newVal = this.curOptions.vars[v[0]] || v[1];
       
       if(newVal){
-        node.nodeValue = val.replace(res[0], newVal);
+        node.nodeValue = val.replace(res[0], $.trim(newVal));
         
         this.varNodes.push({
           node: node,
@@ -244,7 +245,7 @@
     }
     
     $.jModal.open($modal, {
-      vars: vars || null,
+      vars: vars || {},
       label: selector
     });
   });

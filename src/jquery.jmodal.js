@@ -13,15 +13,13 @@
     var self = this;
     
     this.$wrap        = $('<div id="jmodal"></div>');
-    this.$bg          = $('<div id="jmodal-bg"></div>')
-    this.$container   = $('<div id="jmodal-container"></div>')
+    this.$container   = $('<div id="jmodal-container"></div>');
     this.$placeholder = $('<div id="jmodal-placeholder"></div>');
     this.$close       = $('<a id="jmodal-close">&times;</a>');
     this.$prev;
     this.$modal;
     this.$fixed;
     
-    this.$bg.appendTo(this.$wrap);
     this.$container.appendTo(this.$wrap);
     this.$close.appendTo(this.$container);
   
@@ -37,8 +35,10 @@
     
     this.shown = false;
     
-    this.$bg.click(function(){
-      self.close();
+    this.$wrap.click(function(e){
+      if(self.$wrap.is(e.target)){
+        self.close();
+      }
     });
     
     this.$close.click(function(){
@@ -120,11 +120,6 @@
         this.$wrap.css('margin-right', (-1) * this.diff);
       }
 
-      if(this.$container.outerWidth(true) < this.$wrap.width()){
-        this.$bg.css('bottom', this.diff);
-      }
-
-      this.$bg.css('right', '');
       $html.css('margin-right', '');
     }
     
@@ -135,7 +130,7 @@
     
     this.$fixed = $('*').filter(function(){
       return $(this).css('position') === 'fixed';
-    }).not(this.$wrap).not(this.$bg);
+    }).not(this.$wrap);
     
     this.$fixed.each(function(){
       $(this).css('max-width', $(this).outerWidth());
@@ -215,11 +210,7 @@
     
     $.jModal.$wrap.appendTo($body);
 
-    if($.jModal.isMobile){
-      $.jModal.$bg.appendTo($body);
-    }
-
-    else{
+    if(!$.jModal.isMobile){
       $html.addClass('desktop');
     }
   });
@@ -227,29 +218,6 @@
   $(window).keydown(function(e){
     if(e.which == 27){
       $.jModal.close();
-    }
-  });
-  
-  $(window).bind('resize.jmodal', function(){
-    
-    if(!$.jModal.shown || $.jModal.isMobile){
-      return;
-    }
-    
-    if($.jModal.$container.outerHeight(true) > $.jModal.$wrap.height()){
-      $.jModal.$bg.css('right', $.jModal.diff);
-    }
-
-    else{
-      $.jModal.$bg.css('right', '');
-    }
-
-    if($.jModal.$container.outerWidth(true) > $.jModal.$wrap.width()){
-      $.jModal.$bg.css('bottom', $.jModal.diff);
-    }
-
-    else{
-      $.jModal.$bg.css('bottom', '');
     }
   });
   

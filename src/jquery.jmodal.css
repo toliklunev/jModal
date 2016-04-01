@@ -1,1 +1,59 @@
-#jmodal{display:none;position:absolute;left:0;right:0;top:0;overflow:hidden;z-index:1001}.desktop #jmodal{position:fixed;height:100%}.jmodal_shown #jmodal{overflow:auto;display:block}.jmodal_shown #jmodal .modal{display:block}#jmodal .gratitude h2{margin-bottom:35px}#jmodal .gratitude p{font-size:17px;line-height:20px}#jmodal_bg{background:rgba(0,0,0,.8);position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;display:none}.jmodal_shown #jmodal_bg{display:block}.desktop #jmodal_bg{z-index:1}#jmodal_container{width:90%;margin:0 auto;padding:50px;min-width:900px;z-index:2}#jmodal_close{position:absolute;cursor:pointer;z-index:3}html.jmodal_shown{position:relative}html.jmodal_shown.desktop{overflow-x:auto;overflow-y:hidden}html.jmodal_shown.desktop body{min-width:0}
+.modal {
+  position: relative;
+  background: #FFF;
+  display: none;
+  padding: 10px 20px 20px; }
+
+#jmodal {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+  z-index: 1001; }
+  .desktop #jmodal {
+    position: fixed;
+    height: 100%; }
+  .jmodal-shown #jmodal {
+    overflow: auto;
+    display: block; }
+    .jmodal-shown #jmodal .modal {
+      display: block; }
+
+#jmodal-bg {
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: none; }
+  .jmodal-shown #jmodal-bg {
+    display: block; }
+  .desktop #jmodal-bg {
+    z-index: 1; }
+
+#jmodal-container {
+  position: relative;
+  width: 90%;
+  margin: 50px auto;
+  z-index: 2; }
+
+#jmodal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 3; }
+
+html.jmodal-shown {
+  position: relative; }
+  html.jmodal-shown.desktop {
+    overflow-x: auto;
+    overflow-y: hidden; }
+    html.jmodal-shown.desktop body {
+      min-width: 0; }
+
+/*# sourceMappingURL=jquery.jmodal.css.map */

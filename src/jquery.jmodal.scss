@@ -1,81 +1,81 @@
+.modal{
+  position: relative;
+  background: #FFF;
+  display: none;
+  padding: 10px 20px 20px;
+}
+
 #jmodal{
-	display: none;
-	position: absolute;
-	left: 0; right: 0;
-	top: 0;
-	overflow: hidden;
-	z-index: 1001;
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+  z-index: 1001;
 
-	.desktop &{
-		position: fixed;
-		height: 100%;
-	}
+  .desktop &{
+    position: fixed;
+    height: 100%;
+  }
 
-	.jmodal_shown &{
-		overflow: auto;
-		display: block;
+  .jmodal-shown &{
+    overflow: auto;
+    display: block;
 
-		.modal{
-			display: block;
-		}
-	}
+    .modal{
+      display: block;
+    }
+  }
 
-	.modal{
+  .modal{
 
-	}
-
-	.gratitude{
-		h2{
-			margin-bottom: 35px;
-		}
-
-		p{
-			font-size: 17px;
-			line-height: 20px;
-		}
-	}
+  }
 }
 
-#jmodal_bg{
-	background: rgba(#000, .8);
-	position: fixed;
-	top: 0; left: 0;
-	right: 0; bottom: 0;
-	z-index: 1000;
-	display: none;
+#jmodal-bg{
+  background: rgba(#000, .8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: none;
 
-	.jmodal_shown &{
-		display: block;
-	}
+  .jmodal-shown &{
+    display: block;
+  }
 
-	.desktop &{
-		z-index: 1;
-	}
+  .desktop &{
+    z-index: 1;
+  }
 }
 
-#jmodal_container{
-	width: 90%;
-	margin: 0 auto;
-	padding: 50px;
-	min-width: 900px;
-	z-index: 2;
+#jmodal-container{
+  position: relative;
+  width: 90%;
+  margin: 50px auto;
+  z-index: 2;
 }
 
-#jmodal_close{
-	position: absolute;
-	cursor: pointer;
-	z-index: 3;
+#jmodal-close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 3;
 }
 
-html.jmodal_shown{
-	position: relative;
-	
-	&.desktop{
-		overflow-x: auto;
-		overflow-y: hidden;
+html.jmodal-shown{
+  position: relative;
+  
+  &.desktop{
+    overflow-x: auto;
+    overflow-y: hidden;
 
-		body{
-			min-width: 0;
-		}
-	}
+    body{
+      min-width: 0;
+    }
+  }
 }

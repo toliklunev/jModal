@@ -12,7 +12,8 @@
   right: 0;
   top: 0;
   overflow: hidden;
-  z-index: 1001; }
+  z-index: 1001;
+  padding: 50px; }
   .desktop #jmodal {
     position: fixed;
     height: 100%; }
@@ -44,6 +45,7 @@ html.jmodal-shown {
     overflow-x: auto;
     overflow-y: hidden; }
     html.jmodal-shown.desktop body {
+      overflow-x: hidden;
       min-width: 0; }
 
 /*# sourceMappingURL=jquery.jmodal.css.map */

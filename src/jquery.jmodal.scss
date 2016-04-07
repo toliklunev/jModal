@@ -16,6 +16,7 @@ $jmodal-modal-class: 'modal' !default;
   top: 0;
   overflow: hidden;
   z-index: 1001;
+  padding: 50px;
 
   .desktop &{
     position: fixed;
@@ -58,6 +59,7 @@ html.jmodal-shown{
     overflow-y: hidden;
 
     body{
+      overflow-x: hidden;
       min-width: 0;
     }
   }

@@ -145,7 +145,7 @@
         self.processVarNode(attr);
       });
       
-      $(this).contents().each(function(){
+      $(this).contents().not('iframe').each(function(){
         if(this.nodeType === 3 && $.trim(this.nodeValue)){
           self.processVarNode(this);
         }

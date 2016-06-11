@@ -106,7 +106,6 @@
   jModal.prototype.close = function(){
     this.shown = false;
     this.$wrap.removeAttr('data-jmodal-label');
-    this.$fixed.css('max-width', '');
     $html.removeClass('jmodal-shown');
     
     if(this.varNodes.length){
@@ -114,6 +113,8 @@
     }
     
     if(!this.isMobile){
+      this.$fixed.css('max-width', '');
+      
       if(this.$container.outerHeight(true) < this.$wrap.height()){
         this.$wrap.css('margin-right', (-1) * this.diff);
       }
@@ -156,7 +157,7 @@
   
   jModal.prototype.processVarNode = function(node){
     
-    var expr = new RegExp(/^{{(.*)}}$/);
+    var expr = new RegExp(/{{(.*)}}/);
     var val = node.nodeValue;
     var res = expr.exec(val);
     

@@ -5,23 +5,36 @@
   padding: 10px 20px 20px; }
 
 #jmodal {
-  background: rgba(0, 0, 0, 0.8);
   display: none;
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   overflow: hidden;
-  z-index: 1001;
-  padding: 50px; }
+  z-index: 1001; }
+  #jmodal:before {
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    content: ''; }
   .desktop #jmodal {
     position: fixed;
     height: 100%; }
+    .desktop #jmodal:before {
+      position: absolute; }
   .jmodal-shown #jmodal {
-    overflow: auto;
+    overflow: visible;
     display: block; }
+    .jmodal-shown #jmodal:before {
+      display: block; }
     .jmodal-shown #jmodal .modal {
       display: block; }
+  #jmodal .desktop.jmodal-shown {
+    overflow: auto; }
 
 #jmodal-container {
   position: relative;

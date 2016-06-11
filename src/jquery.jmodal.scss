@@ -8,7 +8,6 @@ $jmodal-modal-class: 'modal' !default;
 }
 
 #jmodal{
-  background: rgba(#000, .8);
   display: none;
   position: absolute;
   left: 0;
@@ -16,20 +15,43 @@ $jmodal-modal-class: 'modal' !default;
   top: 0;
   overflow: hidden;
   z-index: 1001;
-  padding: 50px;
+
+  &:before{
+    display: none;
+    background: rgba(#000, .8);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    content: '';
+  }
 
   .desktop &{
     position: fixed;
     height: 100%;
+    background: rgba(#000, .8);
+
+    &:before{
+      display: none;
+    }
   }
 
   .jmodal-shown &{
-    overflow: auto;
+    overflow: visible;
     display: block;
+
+    &:before{
+      display: block;
+    }
 
     .#{$jmodal-modal-class}{
       display: block;
     }
+  }
+
+  .desktop.jmodal-shown{
+    overflow: auto;
   }
 }
 
@@ -53,7 +75,7 @@ $jmodal-modal-class: 'modal' !default;
 
 html.jmodal-shown{
   position: relative;
-  
+
   &.desktop{
     overflow-x: auto;
     overflow-y: hidden;

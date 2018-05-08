@@ -78,6 +78,8 @@
     }
     
     if(!this.isMobile){
+      this.fixWidth();
+      
       this.diff = (-1 * $html.width()) + $html.addClass('jmodal-shown').width();
       
       if(this.diff){
@@ -86,7 +88,6 @@
       
       this.$wrap.css('margin-right', '');
       
-      this.fixWidth();
     }
     
     else{
